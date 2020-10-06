@@ -5,6 +5,9 @@ stages:
   - test
   - deploy
 
+before_script:
+  - pip3 install -r requirements.txt
+
 check-files:
   stage: check
   before_script:
@@ -16,6 +19,5 @@ test:
   stage: test
   before_script:
     - pip3 install pytest
-    - pip3 install -r requirements.txt
   script:
     - python manage.py test
