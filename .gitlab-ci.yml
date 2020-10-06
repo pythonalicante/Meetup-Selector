@@ -1,0 +1,24 @@
+image: python:latest
+
+stages:
+  - check
+  - test
+  - deploy
+
+check-files:
+  stage: check
+  before_script:
+    - pip3 install pylint
+  script:
+    - pylint meetupselector/
+
+test:
+  stage: test
+  variables:
+    - LC_ALL=C.UTF-8
+    - LANG=C.UTF-8
+  before_script:
+    - pip3 install pytest
+    - pip3 install -r requirements.txt
+  script:
+    - python manage.py test
