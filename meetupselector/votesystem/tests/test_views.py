@@ -1,14 +1,11 @@
-from django.test import (
-    Client,
-    TestCase
-)
+from django.test import TestCase
 from django.urls import reverse
+
+from ..models import TopicProposalLevel
 
 
 class TopicProposalTestcase(TestCase):
-
-    def setUp(self):
-        self.client = Client()
+    url = reverse('topic_proposal')
 
     def test_it_serves_topic_proposal_view(self):
         response = self.client.get(reverse('topic_proposal'))
@@ -16,9 +13,8 @@ class TopicProposalTestcase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_it_renders_form(self):
-        url = reverse('topic_proposal')
         form_html = f"""
-            <form action="{url}" method="post">
+            <form action="{self.url}" method="post">
               <p>
                 <label for="id_topic">Topic:</label>
                 <input type="text" name="topic" maxlength="250" required id="id_topic" />
@@ -51,6 +47,17 @@ class TopicProposalTestcase(TestCase):
             </form>
         """
 
-        response = self.client.get(reverse('topic_proposal'))
+        response = self.client.get(self.url)
 
         self.assertContains(response=response, text=form_html, status_code=200, html=True)
+
+    def test_post_successful(self):
+        data = {
+            "topic": "Something interesting",
+            "description": "This is a very interesting topic I think should be presented",
+            "level": TopicProposalLevel.BASIC
+        }
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 200)
