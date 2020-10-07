@@ -1,11 +1,11 @@
-image: python:latest
+image: python:3.8
 
 stages:
   - check
   - test
   - deploy
 
-check-files:
+pylint:
   stage: check
   before_script:
     - pip3 install -r requirements.txt
@@ -17,6 +17,5 @@ test:
   stage: test
   before_script:
     - pip3 install -r requirements.txt
-    - pip3 install pytest
   script:
     - python manage.py test
