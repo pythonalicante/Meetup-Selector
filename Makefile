@@ -9,4 +9,4 @@ django-setup:
 	python manage.py migrate
 
 lint:
-	pylint meetupselector/
+	 flake8 meetupselector/

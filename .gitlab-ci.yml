@@ -9,9 +9,9 @@ pylint:
   stage: check
   before_script:
     - pip3 install -r requirements.txt
-    - pip3 install pylint
+    - pip3 install flake8
   script:
-    - pylint meetupselector/
+    - flake8 meetupselector/
 
 test:
   stage: test
