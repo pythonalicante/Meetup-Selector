@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'meetupselector.base',
     'meetupselector.votesystem',
 ]
 
@@ -77,7 +78,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'meetupselector.wsgi.application'
-
+AUTH_USER_MODEL = 'base.BaseUser'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
