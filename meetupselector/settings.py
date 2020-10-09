@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
 import warnings
+from .auxiliary.auxiliary import Auxiliary
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,9 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
-
-DEBUG = True
+SECRET_KEY = Auxiliary.get_django_key()["key"]
+DEBUG = Auxiliary.get_debug_mode()["mode"]
 
 if not SECRET_KEY and DEBUG:
     warnings.warn("SECRET_KEY not configured, using a random temporary key")
@@ -86,7 +86,7 @@ AUTH_USER_MODEL = 'base.BaseUser'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'tmp/db.sqlite3',
+        'NAME': BASE_DIR / Auxiliary.get_sqlite_location()["location"],
     }
 }
 
@@ -131,10 +131,10 @@ if DEBUG:
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-MEDIA_URL = os.environ.get("MEDIA_URL", "/media/")
+MEDIA_URL = Auxiliary.get_media_url()["media_url"]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = os.environ.get("STATIC_URL", "/static/")
+STATIC_URL = Auxiliary.get_static_url()["static_url"]
 STATICFILES_DIRS = [
     ("images", os.path.join(BASE_DIR, "backend", "static", "images")),
 ]
@@ -148,13 +148,13 @@ FIXTURE_DIRS = [os.path.join(BASE_DIR, "fixtures")]
 CORS_ORIGIN_ALLOW_ALL = True
 
 # AUTH_USER_MODEL = "account.Account"
-
+email_credentials = Auxiliary.get_email_credentials()
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_USE_TLS = True
-    EMAIL_HOST = os.environ.get("MAIL_HOST", "smtp.gmail.com")
-    EMAIL_HOST_USER = os.environ.get("MAIL_USER", "")
-    EMAIL_HOST_PASSWORD = os.environ.get("MAIL_PASSWORD", "")
-    EMAIL_PORT = os.environ.get("MAIL_PORT", 587)
+    EMAIL_USE_TLS = email_credentials["use_tls"]
+    EMAIL_HOST = email_credentials["host"]
+    EMAIL_HOST_USER = email_credentials["user"]
+    EMAIL_HOST_PASSWORD = email_credentials["password"]
+    EMAIL_PORT = email_credentials["port"]
