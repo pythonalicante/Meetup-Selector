@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import TopicProposal
 
-# Register your models here.
+admin.site.register(TopicProposal)

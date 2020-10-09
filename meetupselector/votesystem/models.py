@@ -32,3 +32,6 @@ class TopicProposal(models.Model):
         null=False,
         max_length=15
     )
+
+    def __str__(self):
+        return f'[{self.id}]{self.topic}'
