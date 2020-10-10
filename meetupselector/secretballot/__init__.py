@@ -8,7 +8,7 @@ from django.db.models import Manager
 
 
 def limit_total_votes(num):
-    from secretballot.models import Vote
+    from .models import Vote
 
     def total_vote_limiter(request, content_type, object_id, vote):
         return Vote.objects.filter(content_type=content_type,
@@ -27,11 +27,16 @@ def enable_voting_on(cls, manager_name='objects',
     VOTE_TABLE = Vote._meta.db_table
 
     def add_vote(self, token, vote):
-        voteobj, created = getattr(self, votes_name).get_or_create(token=token,
-                                                                   defaults={
-                                                                       'vote': vote,
-                                                                       'content_object': self
-                                                                   })
+        voteobj, created = (
+            getattr(self, votes_name)
+            .get_or_create(
+                token=token,
+                defaults={
+                    'vote': vote,
+                    'content_object': self
+                }
+            )
+        )
         if not created:
             voteobj.vote = vote
             voteobj.save()
