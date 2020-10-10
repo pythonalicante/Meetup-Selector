@@ -145,10 +145,3 @@ dmypy.json
 # End of https://www.toptal.com/developers/gitignore/api/python
 
 tmp/
-
-# Editors
-*.sublime-workspace
-*.sublime-project
-.vscode
-.vscode/*
-.idea

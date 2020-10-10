@@ -13,7 +13,6 @@ import os
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
 import warnings
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,13 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY_DJANGO")
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
-mode_debug = True
-if os.getenv("DEBUG_MODE") == 'False':
-    mode_debug = False
-
-DEBUG = mode_debug
+DEBUG = True
 
 if not SECRET_KEY and DEBUG:
     warnings.warn("SECRET_KEY not configured, using a random temporary key")
@@ -50,8 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'meetupselector.base',
-    'meetupselector.votesystem',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +76,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'meetupselector.wsgi.application'
-AUTH_USER_MODEL = 'base.BaseUser'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -91,7 +84,7 @@ AUTH_USER_MODEL = 'base.BaseUser'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / os.getenv("LOCATION_SQLITE_DB"),
+        'NAME': BASE_DIR / 'tmp/db.sqlite3',
     }
 }
 
@@ -136,10 +129,10 @@ if DEBUG:
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-MEDIA_URL = os.getenv("MEDI_URL")
+MEDIA_URL = os.environ.get("MEDIA_URL", "/media/")
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = os.getenv("STATIC_URL")
+STATIC_URL = os.environ.get("STATIC_URL", "/static/")
 STATICFILES_DIRS = [
     ("images", os.path.join(BASE_DIR, "backend", "static", "images")),
 ]
@@ -154,17 +147,12 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # AUTH_USER_MODEL = "account.Account"
 
-
-email_use_tls = True
-if os.getenv("EMAIL_USE_TLS") == 'False':
-    email_use_tls = False
-
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_USE_TLS = email_use_tls
-    EMAIL_HOST = os.getenv("MAIL_HOST_USER"),
-    EMAIL_HOST_USER = os.getenv("EMAIL_HOST_PASSWORD")
-    EMAIL_HOST_PASSWORD = email_credentials["password"]
-    EMAIL_PORT = os.getenv("EMAIL_PORT")
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = os.environ.get("MAIL_HOST", "smtp.gmail.com")
+    EMAIL_HOST_USER = os.environ.get("MAIL_USER", "")
+    EMAIL_HOST_PASSWORD = os.environ.get("MAIL_PASSWORD", "")
+    EMAIL_PORT = os.environ.get("MAIL_PORT", 587)
