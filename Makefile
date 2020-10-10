@@ -1,4 +1,4 @@
-all: setup django-setup
+all: setup django-setup lint test
 
 setup:
 	pip install pylint
@@ -9,4 +9,10 @@ django-setup:
 	python manage.py migrate
 
 lint:
-	 flake8 meetupselector/
+	flake8 meetupselector/
+
+test:
+	python manage.py test
+
+prepush: lint test
+	
