@@ -3,7 +3,10 @@ from django.shortcuts import render
 
 from django.views import View
 
+from meetupselector.secretballot import enable_voting_on
+from meetupselector.secretballot.views import vote
 from .forms import TopicProposalForm
+from .models import TopicProposal
 
 
 class TopicProposalView(View):
@@ -33,3 +36,23 @@ class TopicProposalView(View):
         }
         html = render(request=request, template_name=self.template_name, context=context)
         return HttpResponse(status=400)
+
+
+class TopicProposalListView(View):
+    template_name = 'topic_proposal_list.html'
+
+    def __init__(self, **kwargs):
+        super().__init__()
+        enable_voting_on(TopicProposal)
+
+    def get(self, request):
+        pk = request.GET.get('vote_for', None)
+        if TopicProposal.objects.filter(pk=pk).exists():
+            vote(request, TopicProposal, pk, 1)
+
+        context = {
+            'topic_proposals': TopicProposal.objects.all()
+        }
+        html = render(request=request, template_name=self.template_name, context=context)
+
+        return HttpResponse(html)
