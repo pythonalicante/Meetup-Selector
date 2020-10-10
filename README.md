@@ -1,4 +1,4 @@
-# Meetup-Selector
+# Meetup-Selector from Python Alicante
 A Landing Page for the community and a vote-system for select the topic of the MeetUp
 
 Meetup-Selector es un proyecto open source creado por la organización de Python Alicante para el [HactoberfestES 2020](https://hacktoberfest.es.python.org/)
