@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from django.views import View
 
+from meetupselector.secretballot import enable_voting_on
 from meetupselector.secretballot.views import vote
 from .forms import TopicProposalForm
 from .models import TopicProposal
@@ -39,6 +40,10 @@ class TopicProposalView(View):
 
 class TopicProposalListView(View):
     template_name = 'topic_proposal_list.html'
+
+    def __init__(self, **kwargs):
+        super().__init__()
+        enable_voting_on(TopicProposal)
 
     def get(self, request):
         pk = request.GET.get('vote_for', None)
