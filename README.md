@@ -1,6 +1,8 @@
 # Meetup-Selector from Python Alicante
 
-[![pipeline status](https://gitlab.com/aalmiramolla/meetupselector/badges/main/pipeline.svg)](https://gitlab.com/aalmiramolla/meetupselector/-/commits/main) 
+Main Pipeline: [![pipeline status](https://gitlab.com/aalmiramolla/meetupselector/badges/main/pipeline.svg)](https://gitlab.com/aalmiramolla/meetupselector/-/commits/main)
+
+Dev Pipiline: [![pipeline status](https://gitlab.com/aalmiramolla/meetupselector/badges/dev/pipeline.svg)](https://gitlab.com/aalmiramolla/meetupselector/-/commits/dev)
 
 A Landing Page for the community and a vote-system for select the topic of the MeetUp
 
