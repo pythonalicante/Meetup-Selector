@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class TopicProposalLevel(models.TextChoices):
@@ -32,3 +33,13 @@ class TopicProposal(models.Model):
         null=False,
         max_length=15
     )
+
+    date_added = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        ordering = ['-date_added']
+
+    def __str__(self):
+        return f'[{self.id}]{self.topic}'
