@@ -1,4 +1,7 @@
 # Meetup-Selector from Python Alicante
+
+[![pipeline status](https://gitlab.com/aalmiramolla/meetupselector/badges/main/pipeline.svg)](https://gitlab.com/aalmiramolla/meetupselector/-/commits/main) 
+
 A Landing Page for the community and a vote-system for select the topic of the MeetUp
 
 Meetup-Selector es un proyecto open source creado por la organización de Python Alicante para el [HactoberfestES 2020](https://hacktoberfest.es.python.org/)
@@ -12,6 +15,14 @@ Sé quiere hacer de manera generica para que cualquier comunidad pueda "forkear"
 ## Licencia
 
 Meetup-Selector es un proyecto de código abierto que opera bajo la licencia GPLv3.0, que puedes leer en el archivo [LICENSE](https://github.com/pythonalicante/Meetup-Selector/blob/master/LICENSE) del repositorio.
+
+## Contributors
+
+<a href="https://github.com/pythonalicante/meetup-selector/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=pythonalicante/meetup-selector" />
+</a>
+
+Made with [contributors-img](https://contributors-img.web.app).
 
 ---
 
