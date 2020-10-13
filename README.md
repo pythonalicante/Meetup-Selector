@@ -12,6 +12,10 @@ El proyecto consiste en hacer, de manera genérica, una Landing Page y un sistem
 
 Sé quiere hacer de manera generica para que cualquier comunidad pueda "forkear" el repositorio y tener su propio sistema de selección de MeetUp's
 
+## ¿Cómo contribuir?
+
+Mira el fichero [CONTRIBUTING.md](https://github.com/pythonalicante/Meetup-Selector/blob/main/CONTRIBUTING.md)
+
 ## Licencia
 
 Meetup-Selector es un proyecto de código abierto que opera bajo la licencia GPLv3.0, que puedes leer en el archivo [LICENSE](https://github.com/pythonalicante/Meetup-Selector/blob/master/LICENSE) del repositorio.
