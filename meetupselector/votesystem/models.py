@@ -48,7 +48,7 @@ class TopicProposal(models.Model):
         ordering = ['-date_added']
 
     def __str__(self):
-        return f'[{self.id}]{self.topic}'
+        return f'{self.topic}'
 
 
 class ProposedMeetUp(models.Model):
@@ -88,4 +88,4 @@ class ProposedMeetUp(models.Model):
         ]
 
     def __str__(self):
-        return f'[{self.year}/{self.month}] {self.topic_proposal.topic}'
+        return f'[{self.year}/{self.month:02d}] {self.topic_proposal.topic}'
