@@ -1,13 +1,15 @@
 {% load static %}
-<nav class="grey lighten-3 black-text">
+<nav class="white lighten-3 black-text ">
     <div class="nav-wrapper ">
-        <a href="#" class="brand-logo">
-            <img src="{% static '../media/python-alicante.svg' %}" alt="Python Alicante">
-        </a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">JavaScript</a></li>
+        <div>
+            <a href="#" class="brand-logo">
+                <img class="logo" src="{% static '/images/PythonAlicanteLogo.png' %}" alt="Python Alicante">
+            </a>
+        </div>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down custom-links">
+            <li><a href="{% url 'topic_proposal'%}">Create topic proposal</a></li>
+            <li><a href="{% url 'topic_proposal_list'%}">List topic proposal</a></li>
         </ul>
     </div>
 </nav>

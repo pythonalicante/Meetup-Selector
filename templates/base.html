@@ -12,13 +12,13 @@
 </head>
 
 <body>
-    <div>
+    <main>
         {% include 'navbar.html' %}
-        <div class="container">
+        <div class="container content">
             {% block content %} {% endblock %}
         </div>
-        {%include 'footer.html' %}
-    </div>
+    </main>
+    {%include 'footer.html' %}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
