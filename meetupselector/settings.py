@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'meetupselector.base',
     'meetupselector.votesystem',
+    'meetupselector.landingpage',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
@@ -168,3 +170,7 @@ else:
     EMAIL_HOST_USER = os.getenv("EMAIL_HOST")
     EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
     EMAIL_PORT = os.getenv("EMAIL_PORT")
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+X_FRAME_OPTIONS = 'SAMEORIGIN'

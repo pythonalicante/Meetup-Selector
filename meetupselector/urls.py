@@ -21,5 +21,7 @@ from django.urls import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('votesystem/', include('meetupselector.votesystem.urls'))
+    path('votesystem/', include('meetupselector.votesystem.urls')),
+    path('', include('meetupselector.landingpage.urls')),
+    path('summernote/', include('django_summernote.urls')),
 ]
