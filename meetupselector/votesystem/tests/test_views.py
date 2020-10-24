@@ -3,11 +3,9 @@ from django.test import TestCase
 from django.urls import reverse
 
 from meetupselector.secretballot import enable_voting_on
-from .builders import TopicProposalBuilder
-from ..models import (
-    TopicProposal,
-    TopicProposalLevel
-)
+
+from ..models import TopicProposal, TopicProposalLevel
+from .builders import TopicProposalBuilder, ProposedMeetupBuilder
 
 
 class TopicProposalTestcase(TestCase):
@@ -149,3 +147,23 @@ class TopicProposalListTestcase(TestCase):
         downvotes = topic_proposal.votes.filter(vote=-1).count()
 
         return upvotes - downvotes
+
+
+class PersonProposalTestcase(TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        model = apps.get_model('votesystem', 'TopicProposal')
+        enable_voting_on(model)
+        cls.url = reverse('topic_proposal_list')
+
+    def test_vote_is_blocked_when_month_has_proposed_meetup(self):
+        topic_proposal = TopicProposalBuilder().build()
+        proposed_meetup = ProposedMeetupBuilder().with_topic_proposal(topic_proposal).build()
+        header = '<th>Vote</th>'
+        link = f'<a href="{self.url}?vote_for={topic_proposal.pk}">vote</a>'
+        response = self.client.get(self.url)
+
+        self.assertNotContains(response, header, status_code=200, msg_prefix='', html=False)
+        self.assertNotContains(response, link, status_code=200, msg_prefix='', html=False)
