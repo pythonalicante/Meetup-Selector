@@ -13,6 +13,6 @@ class LandingPageTestcase(TestCase):
     def test_it_renders_landing_page(self):
         response = self.client.get(self.url)
 
-        fragment = 'Python Alicante'
+        fragment = 'You can change the content in the admin page'
 
         self.assertContains(response=response, text=fragment, status_code=200)

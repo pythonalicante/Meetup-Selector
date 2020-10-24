@@ -171,6 +171,5 @@ else:
     EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
     EMAIL_PORT = os.getenv("EMAIL_PORT")
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 X_FRAME_OPTIONS = 'SAMEORIGIN'
