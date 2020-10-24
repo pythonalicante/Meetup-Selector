@@ -1,12 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils import timezone
 
 from django.views import View
 
 from meetupselector.secretballot import enable_voting_on
 from meetupselector.secretballot.views import vote
 from .forms import TopicProposalForm
-from .models import TopicProposal
+from .models import TopicProposal, ProposedMeetUp
 
 
 class TopicProposalView(View):
@@ -49,9 +50,17 @@ class TopicProposalListView(View):
         pk = request.GET.get('vote_for', None)
         if TopicProposal.objects.filter(pk=pk).exists():
             vote(request, TopicProposal, pk, 1)
+        current_time = timezone.now()
+        current_year = current_time.year
+        current_month = current_time.month
+        proposed_meetups = ProposedMeetUp.objects.filter(month=current_month, year=current_year)
+        can_vote = True
+        if proposed_meetups:
+            can_vote = False
 
         context = {
-            'topic_proposals': TopicProposal.objects.all()
+            'topic_proposals': TopicProposal.objects.all(),
+            'can_vote': can_vote
         }
         html = render(request=request, template_name=self.template_name, context=context)
 
