@@ -16,6 +16,7 @@ import warnings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = Path(__file__).resolve().parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -138,12 +139,13 @@ if DEBUG:
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-MEDIA_URL = os.getenv("MEDI_URL")
+MEDIA_URL = os.getenv("MEDIA_URL", "media")
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = os.getenv("STATIC_URL")
+STATIC_URL = os.getenv("STATIC_URL", "static")
 STATICFILES_DIRS = [
-    ("images", os.path.join(BASE_DIR, "backend", "static", "images")),
+    ("images", os.path.join(PROJECT_DIR, "static", "images")),
+    ("css", os.path.join(PROJECT_DIR, "static", "css")),
 ]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",

@@ -1,5 +1,9 @@
+{%extends 'base.html'%}
+{%block content%}
 <form action="{% url 'topic_proposal' %}" method="post">
     {{ form.as_p }}
     {% csrf_token %}
-    <input type="submit" value="Submit">
+    <input type="submit" class="waves-effect waves-light btn-small text-white" value="Submit">
 </form>
+
+{%endblock%}

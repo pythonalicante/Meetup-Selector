@@ -1,0 +1,31 @@
+.logo{
+    max-height: 60px;
+}
+.custom-links a{
+    color: #373737;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  .content {
+      padding: 2% 0 2% 0;
+  }
+  .brand-logo{
+      padding:0.5% 0 0 1%  !important;
+  }
+  nav{
+    height: 80px !important;
+    line-height: 80px !important;
+  }
+
+select{
+    display: block !important;
+}
