@@ -1,7 +1,7 @@
 all: setup django-setup lint test
 
 setup:
-	pip install pylint
+	pip install flake8
 	pip install -r requirements.txt
 	mkdir -p tmp/
 
