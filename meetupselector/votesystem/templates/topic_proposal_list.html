@@ -21,5 +21,12 @@
     {% endif %}
   </tr>
   {% endfor %}
+  {% if form %}
+    <form action="{% url 'topic_proposal_list' %}" method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" value="Submit">
+    </form>
+  {% endif %}
 </table>
 {%endblock%}
