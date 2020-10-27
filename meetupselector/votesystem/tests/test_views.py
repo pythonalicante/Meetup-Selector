@@ -1,13 +1,11 @@
 from django.apps import apps
 from django.test import TestCase
 from django.urls import reverse
-
+from freezegun import freeze_time
 from meetupselector.secretballot import enable_voting_on
-from .builders import TopicProposalBuilder
-from ..models import (
-    TopicProposal,
-    TopicProposalLevel
-)
+
+from ..models import ProposedPonent, TopicProposal, TopicProposalLevel
+from .builders import ProposedMeetupBuilder, TopicProposalBuilder
 
 
 class TopicProposalTestcase(TestCase):
@@ -149,3 +147,95 @@ class TopicProposalListTestcase(TestCase):
         downvotes = topic_proposal.votes.filter(vote=-1).count()
 
         return upvotes - downvotes
+
+
+class PersonProposalTestcase(TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        model = apps.get_model('votesystem', 'TopicProposal')
+        enable_voting_on(model)
+        cls.url = reverse('topic_proposal_list')
+        cls.topic_proposal = TopicProposalBuilder().build()
+
+    def test_vote_is_blocked_when_month_has_proposed_meetup(self):
+        ProposedMeetupBuilder().with_topic_proposal(self.topic_proposal).build()
+        header = '<th>Vote</th>'
+        link = f'<a href="{self.url}?vote_for={self.topic_proposal.pk}">vote</a>'
+
+        response = self.client.get(self.url)
+
+        self.assertNotContains(response, header, status_code=200, html=False)
+        self.assertNotContains(response, link, status_code=200, html=False)
+
+    @freeze_time("2020-10-01 14:00:00")
+    def test_vote_is_unblocked_when_proposed_meetup_is_the_month_before(self):
+        ProposedMeetupBuilder().with_topic_proposal(self.topic_proposal).with_month(9).build()
+
+        header = '<th>Vote</th>'
+        link = f'<a href="{self.url}?vote_for={self.topic_proposal.pk}">vote</a>'
+        response = self.client.get(self.url)
+
+        self.assertContains(response, header, status_code=200, html=False)
+        self.assertContains(response, link, status_code=200, html=False)
+
+    def test_it_renders_proposed_ponent_form(self):
+        ProposedMeetupBuilder().with_topic_proposal(self.topic_proposal).build()
+
+        fragments = [
+            '<label for="id_name">',
+            '<label for="id_email">',
+            '<label for="id_proposed_meetup">'
+        ]
+
+        response = self.client.get(self.url)
+        for fragment in fragments:
+            self.assertContains(response=response, text=fragment, status_code=200)
+
+    def test_post_successful(self):
+        proposed_meetup = ProposedMeetupBuilder().with_topic_proposal(self.topic_proposal).build()
+
+        data = {
+            "name": "Wozniack",
+            "email": "Siliconvalley@gmail.com",
+            "proposed_meetup": proposed_meetup.id
+        }
+
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_successful_creates_object(self):
+        proposed_meetup = ProposedMeetupBuilder().with_topic_proposal(self.topic_proposal).build()
+        data = {
+            "name": "Wozniack",
+            "email": "Siliconvalley@gmail.com",
+            "proposed_meetup": proposed_meetup.id
+        }
+
+        self.client.post(self.url, data)
+
+        proposed = ProposedPonent.objects.first()
+        self.assertIsNotNone(proposed)
+        self.assertEquals(proposed.name, data["name"])
+        self.assertEquals(proposed.email, data["email"])
+
+    def test_post_invalid(self):
+        ProposedMeetupBuilder().with_topic_proposal(self.topic_proposal).build()
+
+        data = {
+            "name": "",
+            "email": "",
+            "proposed_meetup": ""
+        }
+
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 400)
+
+    def test_if_proposed_ponent_exists_not_render_form(self):
+        proposed_meetup = ProposedMeetupBuilder().with_topic_proposal(self.topic_proposal).build()
+        ProposedPonent.objects.create(name='Wozniack', email='Siliconvalley@gmail.com', proposed_meetup=proposed_meetup)
+
+        response = self.client.get(self.url)
+
+        self.assertNotContains(response, '<label for="id_proposed_meetup">', html=True)

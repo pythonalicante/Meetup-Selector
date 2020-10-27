@@ -1,7 +1,6 @@
-from ..models import (
-    TopicProposal,
-    TopicProposalLevel
-)
+from django.utils import timezone
+
+from ..models import ProposedMeetUp, TopicProposal, TopicProposalLevel
 
 
 class TopicProposalBuilder:
@@ -42,3 +41,30 @@ class TopicProposalBuilder:
                 topic_proposal.add_vote(token, 1)
 
         return topic_proposal
+
+
+class ProposedMeetupBuilder:
+
+    def __init__(self):
+        self.__topic_proposal = None
+        self.__year = timezone.now().year
+        self.__month = timezone.now().month
+
+    def with_topic_proposal(self, topic_proposal):
+        self.__topic_proposal = topic_proposal
+        return self
+
+    def with_month(self, month):
+        self.__month = month
+        return self
+
+    def with_year(self, year):
+        self.__year = year
+        return self
+
+    def build(self):
+        return ProposedMeetUp.objects.create(
+            topic_proposal=self.__topic_proposal,
+            year=self.__year,
+            month=self.__month
+        )
