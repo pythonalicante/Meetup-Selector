@@ -49,7 +49,6 @@ class TopicProposalListView(View):
         pk = request.GET.get('vote_for', None)
         if TopicProposal.objects.filter(pk=pk).exists():
             vote(request, TopicProposal, pk, 1)
-
         html = render(request=request, template_name=self.template_name, context=self.__get_context())
 
         return HttpResponse(html)
@@ -60,8 +59,8 @@ class TopicProposalListView(View):
             form.save()
             html = render(request=request, template_name=self.template_name, context=self.__get_context())
             return HttpResponse(html)  # TODO: we might want to redirect instead
-
         html = render(request=request, template_name=self.template_name, context=self.__get_context())
+
         return HttpResponse(status=400)
 
     def __get_proposed_meetup(self):
