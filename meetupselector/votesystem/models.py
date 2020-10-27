@@ -96,9 +96,5 @@ class ProposedPonent(models.Model):
     email = models.EmailField(max_length=254)
     proposed_meetup = models.OneToOneField(ProposedMeetUp, on_delete=models.CASCADE)
 
-    class Meta:
-        verbose_name = 'Ponente'
-        verbose_name_plural = 'Ponentes'
-
     def __str__(self):
         return f'{self.name} ({self.email}) - {self.proposed_meetup}'
