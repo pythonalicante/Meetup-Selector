@@ -5,7 +5,7 @@ from .models import Content
 
 
 class ContentAdmin(SummernoteModelAdmin):
-    summernote_fields = ('title', 'content')
+    summernote_fields = ('content')
     list_display = (
         'title',
         'content',
