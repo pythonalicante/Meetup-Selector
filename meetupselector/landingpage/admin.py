@@ -8,7 +8,6 @@ class ContentAdmin(SummernoteModelAdmin):
     summernote_fields = ('content')
     list_display = (
         'title',
-        'content',
         'date_added'
     )
     readonly_fields = ('date_added',)
