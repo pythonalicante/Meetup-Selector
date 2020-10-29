@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 
 {% for block in content %}
     <div>
@@ -7,5 +9,4 @@
         {{ block.content|safe }}
     </div>
 {% endfor %}
-    
-
+{% endblock %}
