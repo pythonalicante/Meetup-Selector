@@ -1,6 +1,9 @@
 
 {% for block in content %}
     <div>
+        {{ block.title|safe }}
+    </div>
+    <div>
         {{ block.content|safe }}
     </div>
 {% endfor %}

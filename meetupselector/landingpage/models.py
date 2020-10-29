@@ -18,5 +18,12 @@ class Content(models.Model):
         help_text='Place here the content for your landing page'
     )
 
+    date_added = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        ordering = ['-date_added']
+
     def __str__(self):
         return self.title
