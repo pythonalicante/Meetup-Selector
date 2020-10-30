@@ -39,6 +39,11 @@ if not SECRET_KEY and DEBUG:
 
 ALLOWED_HOSTS = []
 
+# Set here the admins that be notified when a person proposes to give the Meetup talk.
+ADMINS = [
+    ('Python Alicante', 'pyalicante@gmail.com'),
+]
+
 if DEBUG:
     ALLOWED_HOSTS.append("*")
 

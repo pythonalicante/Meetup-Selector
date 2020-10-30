@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
+from django.core.mail import mail_admins
 from meetupselector.secretballot import enable_voting_on
 from meetupselector.secretballot.views import vote
 
@@ -58,12 +59,17 @@ class TopicProposalListView(View):
 
         if form.is_valid():
             form.save()
+            self.__send_email_to_admins(form)
             html = render(request=request, template_name=self.template_name, context=self.__get_context())
             return HttpResponse(html)  # TODO: we might want to redirect instead
 
         html = render(request=request, template_name=self.template_name, context=self.__get_context())
 
         return HttpResponse(status=400)
+
+    def __send_email_to_admins(self, form):
+        message = f"Hola!\n\nUna persona se ha propuesto para dar la charla del mes.\n\nNombre: {form.data.get('name')}\nEmail: {form.data.get('email')}"
+        mail_admins(subject="Se ha propuesto un ponente", message=message)
 
     def __get_proposed_meetup(self):
         current_time = timezone.now()
