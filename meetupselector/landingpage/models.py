@@ -70,7 +70,7 @@ class Collaborator(models.Model):
     )
 
     def __str__(self):
-        if self.last_name != None:
+        if self.last_name is not None:
             return "%s %s" % (self.first_name, self.last_name)
         else:
             return "%s" % (self.first_name)
