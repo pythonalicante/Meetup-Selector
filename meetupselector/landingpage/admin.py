@@ -37,7 +37,7 @@ class CollaboratorAdmin(admin.ModelAdmin):
         )
 
     def _social_network(self, obj):
-        return obj.social_network.all().count()
+        return obj.social_network.count()
 
 
 admin.site.register(Content, ContentAdmin)
