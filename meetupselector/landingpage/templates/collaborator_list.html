@@ -25,12 +25,20 @@
                         <a href="{% url 'collaborator' collaborator.id %}">
                             <h5 class="text-700 main-color-dark">{{collaborator}}</h5>
                         </a>
+                        {% if collaborator.profile %}
                         <h6>{{collaborator.profile}}</h6>
+                        {% endif%}
+                        {% if collaborator.nationality %}
                         <h6>{{collaborator.nationality}}</h6>
-                        <h6>{{collaborator.email}}</h6>
+                        {% endif%}
+                        {% if collaborator.email %}
+                        <a href="mailto:{{collaborator.email}}" target="_blank" rel="noopener noreferrer">
+                            <h6>{{collaborator.email}}</h6>
+                        </a>
+                        {% endif%}
                     </div>
                 </div>
-                <div class="row flex justify-content-center ">
+                <div class="row flex justify-content-center flex-wrap wrap-text">
                     {%for social_network in collaborator.social_network.all%}
                     <div class="col s4 network text-align-center">
                         <a href="{{social_network.link}}" target="_blank">

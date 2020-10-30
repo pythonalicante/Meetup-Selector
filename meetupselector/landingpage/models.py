@@ -43,16 +43,21 @@ class Collaborator(models.Model):
     )
     last_name = models.CharField(
         max_length=250,
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         default="",
         help_text="Last name of collaborator",
     )
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(
+        max_length=254,
+        blank=True,
+        null=True,
+        default="",
+    )
     nationality = models.CharField(
         max_length=250,
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         default="",
         help_text="Collaborator nationality",
     )
@@ -65,7 +70,10 @@ class Collaborator(models.Model):
     )
 
     def __str__(self):
-        return "%s %s" % (self.first_name, self.last_name)
+        if self.last_name != None:
+            return "%s %s" % (self.first_name, self.last_name)
+        else:
+            return "%s" % (self.first_name)
 
 
 class SocialNetwork(models.Model):

@@ -43,7 +43,9 @@ main{
 .no-margin{
   margin: 0!important;
 }
-
+.wrap-text{
+  word-wrap: break-word;
+}
 /* Height-logo */
 .logo{
     max-height: 60px;
