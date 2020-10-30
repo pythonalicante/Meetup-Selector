@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View, generic
 
-from .models import Collaborator, Content, SocialNetwork
+from .models import Collaborator, Content
 
 
 class LandingPageView(View):
