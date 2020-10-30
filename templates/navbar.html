@@ -2,7 +2,7 @@
 <nav class="white lighten-3 black-text ">
     <div class="nav-wrapper ">
         <div>
-            <a href="#" class="brand-logo">
+            <a href="{% url 'home'%}" class="brand-logo">
                 <img class="logo" src="{% static '/images/PythonAlicanteLogo.png' %}" alt="Python Alicante">
             </a>
         </div>
@@ -10,6 +10,7 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down custom-links">
             <li><a href="{% url 'topic_proposal'%}">Create topic proposal</a></li>
             <li><a href="{% url 'topic_proposal_list'%}">List topic proposal</a></li>
+            <li><a href="{% url 'collaborator_list'%}">Collaborators</a></li>
         </ul>
     </div>
 </nav>

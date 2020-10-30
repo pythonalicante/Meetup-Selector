@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row card-content">
+    <div class="col s4">
+        {% if collaborator.avatar%}
+        <img class="collaborator-img" src={{ collaborator.avatar.url }} alt="Avatar">
+        {% else %}
+        <img src="{% static '/images/icons/avatar.svg' %}" alt="Avatar">
+        {% endif %}
+    </div>
+    <div class="col s8 content">
+        <div class="content">
+            <h1 class="text-700 custom-main-color no-margin">{{object.first_name}}</h1>
+            {% if collaborator.last_name %}
+            <h1 class="text-700 custom-main-color no-margin">{{object.last_name}}</h1>
+            {%endif%}
+        </div>
+        <div>
+            {% if collaborator.profile %}
+            <h6 class="grey-text text-darken-1 text-600">{{object.profile}}</h6>
+            {% endif%}
+            {% if collaborator.nationality %}
+            <h6 class="grey-text text-darken-1 text-600">{{object.nationality}}</h6>
+            {% endif%}
+            {% if collaborator.email %}
+            <h6 class="grey-text text-darken-1 text-600">{{object.email}}</h6>
+            {% endif%}
+        </div>
+        <div class="row content flex flex-wrap wrap-text">
+            {%for social_network in object.social_network.all%}
+            <div class="col s1 network">
+                <a href="{{social_network.link}}" target="_blank">
+                    <img src="{% static '/images/icons/'|add:social_network.network|add:'.svg' %}"
+                        alt="{{social_network.network}}" class="network-icon">
+                </a>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+{%endblock%}

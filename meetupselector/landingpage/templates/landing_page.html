@@ -2,11 +2,11 @@
 {% block content %}
 
 {% for block in content %}
-    <div>
-        {{ block.title|safe }}
-    </div>
-    <div>
-        {{ block.content|safe }}
-    </div>
+<div>
+    <h1 class="custom-title">{{ block.title|safe }}</h1>
+</div>
+<div>
+    {{ block.content|safe }}
+</div>
 {% endfor %}
 {% endblock %}
