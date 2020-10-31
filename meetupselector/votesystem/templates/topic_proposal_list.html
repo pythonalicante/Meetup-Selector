@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<table>
+  <tr>
+    <th>Topic</th>
+    <th>Level</th>
+    <th>Total Votes</th>
+    {% if can_vote %}
+    <th>Vote</th>
+    {% endif %}
+  </tr>
+  {% for topic_proposal in topic_proposals %}
+  <tr>
+    <td>{{ topic_proposal.topic }}</td>
+    <td>{{ topic_proposal.level }}</td>
+    <td>{{ topic_proposal.vote_total }}</td>
+    {% if can_vote %}
+    <td>
+      <a href="{% url 'topic_proposal_list' %}?vote_for={{ topic_proposal.pk }}">vote</a>
+    <td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+  {% if form %}
+    <form action="{% url 'topic_proposal_list' %}" method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" value="Submit">
+    </form>
+  {% endif %}
+</table>
+{%endblock%}

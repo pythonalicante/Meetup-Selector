@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1 class="custom-title">Collaborators</h1>
+<div class="content">
+    <div class="row flex flex-wrap">
+        {%for collaborator in collaborators%}
+        <div class="custom-card col s3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="avatar col s12">
+                        <div class="avatar-circle">
+                            <a href="{% url 'collaborator' collaborator.id %}">
+                                {% if collaborator.avatar%}
+                                <img class="collaborator-img" src={{ collaborator.avatar.url }} alt="Avatar">
+                                {% else %}
+                                <img class="default" src="{% static '/images/icons/avatar.svg' %}" alt="Avatar">
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-align-center">
+                    <div class="col s12">
+                        <a href="{% url 'collaborator' collaborator.id %}">
+                            <h5 class="text-700 main-color-dark">{{collaborator}}</h5>
+                        </a>
+                        {% if collaborator.profile %}
+                        <h6>{{collaborator.profile}}</h6>
+                        {% endif%}
+                        {% if collaborator.nationality %}
+                        <h6>{{collaborator.nationality}}</h6>
+                        {% endif%}
+                        {% if collaborator.email %}
+                        <a href="mailto:{{collaborator.email}}" target="_blank" rel="noopener noreferrer">
+                            <h6>{{collaborator.email}}</h6>
+                        </a>
+                        {% endif%}
+                    </div>
+                </div>
+                <div class="row flex justify-content-center flex-wrap wrap-text">
+                    {%for social_network in collaborator.social_network.all%}
+                    <div class="col s4 network text-align-center">
+                        <a href="{{social_network.link}}" target="_blank">
+                            <img src="{% static '/images/icons/'|add:social_network.network|add:'.svg' %}"
+                                alt="{{social_network.network}}" class="network-icon">
+                        </a>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+
+</div>
+{%endblock%}

@@ -1,0 +1,132 @@
+/* Variables */
+:root {
+  --main-bg-color: #6b92f3;
+}
+/* Font-family */
+*{
+  font-family: 'Poppins', sans-serif;
+}
+/* General-Background */
+main{
+  background-color: #fbfbfb;
+}
+/* Helpers */
+.text-600{
+  font-weight: 600;
+}
+.text-700{
+  font-weight: 700;
+}
+.text-align-center{
+  text-align: center;
+}
+.custom-title{
+  font-weight: 600 !important;
+  color: var(--main-bg-color) !important;
+
+}
+.custom-main-color{
+  color: var(--main-bg-color);
+}
+.main-color-dark{
+  color: #4F6BB3;
+}
+.flex{
+  display: flex;
+}
+.justify-content-center{
+  justify-content: center;
+}
+.flex-wrap{
+  flex-wrap: wrap;
+}
+.no-margin{
+  margin: 0!important;
+}
+.wrap-text{
+  word-wrap: break-word;
+}
+/* Height-logo */
+.logo{
+    max-height: 60px;
+}
+/* Change colors of navbar */
+.custom-links a{
+    color: #373737;
+}
+/* Footer sticky */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  .content {
+      padding: 2% 0 2% 0;
+  }
+  .brand-logo{
+      padding:0.5% 0 0 1%  !important;
+  }
+  nav{
+    height: 80px !important;
+    line-height: 80px !important;
+  }
+/* Display select */
+select{
+    display: block !important;
+}
+/* Custom card (Collaborators) */
+.card-content{
+  background: #fff;
+  padding: 2%;
+}
+.custom-card{
+  margin-left: 0 !important;
+}
+.custom-card .card-body{
+  background-color: #fff;
+  box-shadow: 0px 0px 15px rgba(20, 52, 92, 0.03);
+  border-radius: 5px;
+  padding: 6%;
+  margin-bottom: 4%;
+}
+.custom-card h6{
+  font-size: 1rem;
+  line-height: 0.7rem;
+}
+.custom-card h5{
+  font-size: 1.2rem;
+  line-height: 0.8rem;
+}
+.avatar{
+  display: flex;
+  justify-content: center;
+}
+.avatar-circle{
+  background: #f9f9f9;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-circle .default{
+  height: 4.5rem;
+}
+.collaborator-img{
+  width: 100%;
+  height: auto;
+}
+.network{
+  margin-left: 0!important;
+}
+.network-icon{
+  height: 2rem;
+}

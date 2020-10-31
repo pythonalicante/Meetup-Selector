@@ -17,5 +17,6 @@ test:
   stage: test
   before_script:
     - pip3 install -r requirements.txt
+    - cp .env.example .env
   script:
     - python manage.py test
