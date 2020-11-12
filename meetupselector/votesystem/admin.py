@@ -1,11 +1,8 @@
 from django.contrib import admin
 from meetupselector.secretballot import enable_voting_on
 
-from .models import (
-    ProposedMeetUp,
-    ProposedPonent,
-    TopicProposal
-)
+from .forms import ProposedPonentForm
+from .models import ProposedMeetUp, ProposedPonent, TopicProposal
 
 
 class TopicProposalAdmin(admin.ModelAdmin):
@@ -51,6 +48,7 @@ class ProposedMeetUpAdmin(admin.ModelAdmin):
 class ProposedPonentAdmin(admin.ModelAdmin):
 
     model = ProposedPonent
+    form = ProposedPonentForm
     list_display = (
         'name',
         'email',
