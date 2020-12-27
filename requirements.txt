@@ -18,3 +18,4 @@ Pillow==8.0.1
 #
 celery==4.4.1
 redis==3.4.1
+fakeredis==1.4.4
